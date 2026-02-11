@@ -63,6 +63,14 @@ public class Main{
             }
         }
 
+        if (a.getHealth()<=0){
+            System.out.printf("%s победил\n", b.getName());
+        }
+
+        else{
+            System.out.printf("%s победил\n", a.getName());
+        }
+
     }
     public static void attack(Person attacker, Person defender){ //установка урона
         if (defender.getEnergy()==0){ //если энергия = 0
