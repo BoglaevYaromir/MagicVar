@@ -1,11 +1,21 @@
+import java.util.Scanner;
+
 public class Main{
     static void main() {
+
         Person a = new Person("Анатолий"); //создание двух персонажей
         a.printCharacter(); //вывод характеристик
         Person b = new Person("Евдаким");
         b.printCharacter();
 
         battle(a,b); //запуск сражения
+
+        System.out.println("Приветствуем вас в нашем невероятном мире! Введите help, чтобы увидеть возможные команды");
+
+        Scanner scanner = new Scanner(System.in);
+
+        reader(scanner.next());
+
     }
     public static void battle(Person a, Person b){
         double chanceDodgeA = (double) ((a.getDexterity() + a.getReaction()) / 2 + a.getIq() - b.getIq() - b.getSpeed()) /450; //вычисление шанса уворота персонажа (значение до 448/450)
@@ -72,6 +82,7 @@ public class Main{
         }
 
     }
+
     public static void attack(Person attacker, Person defender){ //установка урона
         if (defender.getEnergy()==0){ //если энергия = 0
             System.out.printf("%s нанёс %d урона персонажу %s\n", attacker.getName(), attacker.getDamage(),defender.getName()); //вывод нанесённого урона
@@ -90,6 +101,10 @@ public class Main{
             defender.setEnergy((short)(defender.getEnergy()-(attacker.getDamage()/2)));
         }
         defender.printHealthAndEnergy(); //вывод здоровья и энергии защищающегося персонажа
+
+    }
+
+    public static void reader(String command){
 
     }
 }
