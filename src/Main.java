@@ -63,7 +63,7 @@ public class Main{
             }
         }
 
-        if (a.getHealth()<=0){
+        if (a.getHealth()<=0){ //вывод победителя
             System.out.printf("%s победил\n", b.getName());
         }
 

@@ -1,4 +1,16 @@
 public class Person {
+
+    private final String name;
+    private short health;
+    private short mentalHealth;
+    private short strength;
+    private short dexterity;
+    private short iq;
+    private short speed;
+    private short reaction;
+    private short energy;
+    private short damage;
+
     public Person(String name){
         this.name = name;
         strength = (short) (Math.random()*96 +5); //максимальная сила 100, минимальная 5, нужна для урона, также определяет здоровье и скорость
@@ -12,21 +24,26 @@ public class Person {
         damage = (short)(strength + energy/100 + speed/10); //максимальный урон 225, минимальный 2
     }
 
-    private final String name;
-    private short health;
-    private short mentalHealth;
-    private short strength;
-    private short dexterity;
-    private short iq;
-    private short speed;
-    private short reaction;
-    private short energy;
-    private short damage;
+    public Person(String name, short strength, short health, short dexterity, short energy, short iq, short speed, short reaction){
+        this.name = name;
+        this.strength = strength; //максимальная сила 100, минимальная 5, нужна для урона, также определяет здоровье и скорость
+        this.health = health; //расчитывается как сила*10 +- до 30% силы, максимальное здоровье 1300, минимальное 35
+        this.dexterity = dexterity; //максимальная гибкость 200, используется при вычислении шанса уворота
+        this.energy = energy; //максимальная энергия 10_000, нужна для урона и защиты
+        this.iq = iq; //максимальный IQ 300, минимальный 50, нужен для шанса уворота
+        this.speed = speed; //максимальная скорость 250, минимальная 2, нужна для урона и шанса уворота
+        this.reaction = reaction; //максимальная реакция 200, нужна для шанса уворота
+        mentalHealth = (short) ((health + strength + (energy/10) + iq + speed + reaction)/6);
+        damage = (short)(strength + energy/100 + speed/10); //максимальный урон 225, минимальный 2
+    }
 
     public void printCharacter(){ //вывод всей информации
         System.out.printf("Name = %s, Health = %d, Mental Health = %d, Strength = %d, IQ = %d, Speed = %d, Reaction = %d, Energy = %d\n", name, health,
                 mentalHealth, strength, iq, speed, reaction, energy);
     }
+
+
+
 
     public void printHealthAndEnergy(){ //вывод здоровья и энергии
         System.out.printf("Name = %s, Health = %d, Energy = %d\n",name, health, energy);
