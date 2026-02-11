@@ -14,7 +14,10 @@ public class Main{
 
         Scanner scanner = new Scanner(System.in);
 
-        reader(scanner.next());
+        while (true){
+            reader(scanner.next());
+        }
+
 
     }
     public static void battle(Person a, Person b){
@@ -105,6 +108,23 @@ public class Main{
     }
 
     public static void reader(String command){
+        switch (command){
+            case "help":
+                System.out.println("Для сражения двух случайных персонажей введите \"random\"(1)\n" +
+                        "Для сражения одного случайного и кастомного персонажа введите \"training\"(2)\n" +
+                        "Для сражения двух кастомных персонажей введите \"fight\"(3)\n");
+
+                break;
+            case "1":
+                Person a = new Person("Анатолий"); //создание двух персонажей
+                a.printCharacter(); //вывод характеристик
+                Person b = new Person("Евдаким");
+                b.printCharacter();
+
+                battle(a,b); //запуск сражения
+
+                break;
+        }
 
     }
 }
