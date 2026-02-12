@@ -1,6 +1,6 @@
 public class Person {
 
-    private final String name;
+    private String name;
     private short health;
     private short mentalHealth;
     private short strength;
@@ -10,6 +10,10 @@ public class Person {
     private short reaction;
     private short energy;
     private short damage;
+
+    public Person(){
+
+    }
 
     public Person(String name){
         this.name = name;
@@ -86,6 +90,10 @@ public class Person {
 
     public short getDamage() {
         return damage;
+    }
+
+    public void setName(String name){
+        this.name = name;
     }
 
     public void setHealth(short health){

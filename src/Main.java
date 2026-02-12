@@ -124,7 +124,50 @@ public class Main{
                 battle(a,b); //запуск сражения
 
                 break;
+            case "2":
+                Person aa = new Person();
+                inputDate(aa);
+
         }
 
+    }
+
+    public static void inputDate(Person person){
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Введите имя персонажа");
+        String name = scanner.next();
+        person.setName(name);
+
+        System.out.println("Введите силу");
+        short strength = scanner.nextShort();
+        person.setStrength(strength);
+
+        System.out.println("Введите здоровье");
+        short health = scanner.nextShort();
+        person.setHealth(health);
+
+        System.out.println("Введите ловкость");
+        short dexterity  = scanner.nextShort();
+        person.setDexterity(dexterity);
+
+        System.out.println("Введите энергию");
+        short energy = scanner.nextShort();
+        person.setEnergy(energy);
+
+        System.out.println("Введите IQ");
+        short iq = scanner.nextShort();
+        person.setIq(iq);
+
+        System.out.println("Введите скорость");
+        short speed = scanner.nextShort();
+        person.setSpeed(speed);
+
+        System.out.println("Введите реакцию");
+        short reaction = scanner.nextShort();
+        person.setReaction(reaction);
+
+        person.setDamage();
+        person.setMentalHealth();
     }
 }
