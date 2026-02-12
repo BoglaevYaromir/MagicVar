@@ -127,6 +127,13 @@ public class Main{
             case "2":
                 Person aa = new Person();
                 inputDate(aa);
+                Person bb = new Person("Кирилл");
+
+                aa.printCharacter();
+                bb.printCharacter();
+
+                battle(aa,bb);
+
 
         }
 
