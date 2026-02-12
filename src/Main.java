@@ -135,7 +135,18 @@ public class Main{
                 battle(aa,bb);
 
                 break;
+            case "3":
+                Person aaa = new Person();
+                inputDate(aaa);
+                Person bbb = new Person();
+                inputDate(bbb);
 
+                aaa.printCharacter();
+                bbb.printCharacter();
+
+                battle(aaa,bbb);
+
+                break;
 
         }
 
