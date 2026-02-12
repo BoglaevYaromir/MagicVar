@@ -112,8 +112,8 @@ public class Person {
         this.iq = iq;
     }
 
-    public void setMentalHealth(short mentalHealth) {
-        this.mentalHealth = mentalHealth;
+    public void setMentalHealth() {
+        this.mentalHealth = (short) ((health + strength + (energy/10) + iq + speed + reaction)/6);
     }
 
     public void setSpeed(short speed) {
