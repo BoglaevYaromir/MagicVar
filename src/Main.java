@@ -134,6 +134,8 @@ public class Main{
 
                 battle(aa,bb);
 
+                break;
+
 
         }
 
