@@ -148,6 +148,8 @@ public class Main{
 
                 break;
 
+            default:
+                System.out.println("Не удалось распознать команду");
         }
 
     }
