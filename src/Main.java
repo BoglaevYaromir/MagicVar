@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main{
     static void main() {
@@ -108,49 +110,56 @@ public class Main{
     }
 
     public static void reader(String command){
-        switch (command){
-            case "help":
-                System.out.println("Для сражения двух случайных персонажей введите \"random\"(1)\n" +
-                        "Для сражения одного случайного и кастомного персонажа введите \"training\"(2)\n" +
-                        "Для сражения двух кастомных персонажей введите \"fight\"(3)\n");
+        Pattern patternHelp = Pattern.compile("^[Hh]elp\s*");
+        Matcher matcherHelp = patternHelp.matcher(command);
 
-                break;
-            case "1":
-                Person a = new Person("Анатолий"); //создание двух персонажей
-                a.printCharacter(); //вывод характеристик
-                Person b = new Person("Евдаким");
-                b.printCharacter();
+        Pattern patternRandom = Pattern.compile("^([Rr]andom|1)\s*");
+        Matcher matcherRandom = patternRandom.matcher(command);
 
-                battle(a,b); //запуск сражения
+        Pattern patternTraining = Pattern.compile("^([Tt]raining|2)\s*");
+        Matcher matcherTraining = patternTraining.matcher(command);
 
-                break;
-            case "2":
-                Person aa = new Person();
-                inputDate(aa);
-                Person bb = new Person("Кирилл");
+        Pattern patternFight = Pattern.compile("^([Ff]ight|3)\s*");
+        Matcher matcherFight = patternFight.matcher(command);
 
-                aa.printCharacter();
-                bb.printCharacter();
-
-                battle(aa,bb);
-
-                break;
-            case "3":
-                Person aaa = new Person();
-                inputDate(aaa);
-                Person bbb = new Person();
-                inputDate(bbb);
-
-                aaa.printCharacter();
-                bbb.printCharacter();
-
-                battle(aaa,bbb);
-
-                break;
-
-            default:
-                System.out.println("Не удалось распознать команду");
+        if (matcherHelp.matches()){
+            System.out.println("Для сражения двух случайных персонажей введите \"random\"(1)\n" +
+                    "Для сражения одного случайного и кастомного персонажа введите \"training\"(2)\n" +
+                    "Для сражения двух кастомных персонажей введите \"fight\"(3)\n");
         }
+        else if (matcherRandom.matches()){
+            Person a = new Person("Анатолий"); //создание двух персонажей
+            a.printCharacter(); //вывод характеристик
+            Person b = new Person("Евдаким");
+            b.printCharacter();
+
+            battle(a,b); //запуск сражения
+        } else if (matcherTraining.matches()) {
+            Person a = new Person();
+            inputDate(a);
+            Person b = new Person("Кирилл");
+
+            a.printCharacter();
+            b.printCharacter();
+
+            battle(a,b);
+        } else if (matcherFight.matches()) {
+            Person a = new Person();
+            inputDate(a);
+            Person b = new Person();
+            inputDate(b);
+
+            a.printCharacter();
+            b.printCharacter();
+
+            battle(a,b);
+
+        }
+
+        else{
+            System.out.println("Не удалось распознать команду");
+        }
+
 
     }
 
