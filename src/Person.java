@@ -45,7 +45,7 @@ public class Person {
         double chanceDodgeA = (double) ((a.getDexterity() + a.getReaction()) / 2 + a.getIq() - b.getIq() - b.getSpeed()) /450; //вычисление шанса уворота персонажа (значение до 448/450)
         double chanceDodgeB = (double) ((b.getDexterity() + b.getReaction()) / 2 + b.getIq() - a.getIq() - a.getSpeed()) /450;
 
-        while (a.getHealth()>0 & b.getHealth()>0) { //пока все живы
+        while (a.getHealth()>0 && b.getHealth()>0) { //пока все живы
             System.out.println(); //перевод на новую строку для красоты
 
             a.setDamage(); //установление наносимого урона (надо из-за меняющейся энергии)
@@ -57,7 +57,7 @@ public class Person {
             if (a.getSpeed()>b.getSpeed() || (a.getSpeed() == b.getSpeed() && Math.random()>0.5)){ //определение первой атаки
                 if (!DodgeB){ //проверка уворота
                     attack(a,b);//установка нового здоровья и энергии
-                    if (b.getHealth() <= 0){ //Если b жив
+                    if (b.getHealth() <= 0){ //Если b мёртв
                         continue; //заканчиваем цикл
                     }
                 }
@@ -75,7 +75,7 @@ public class Person {
                 }
             }
 
-            else if (a.getSpeed()<b.getSpeed()){
+            else{
                 if (!DodgeA){
                     attack(b,a);
                     if (a.getHealth() <= 0){

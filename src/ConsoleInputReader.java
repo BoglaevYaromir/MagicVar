@@ -3,33 +3,23 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ConsoleInputReader {
+    private static final Pattern PATTERN_HELP = Pattern.compile("^[Hh]elp\s*");
+    private static final Pattern PATTERN_RANDOM = Pattern.compile("^([Rr]andom|1)\s*");
+    private static final Pattern PATTERN_TRAINING = Pattern.compile("^([Tt]raining|2)\s*");
+    private static final Pattern PATTERN_FIGHT = Pattern.compile("^([Ff]ight|3)\s*");
 
     public static void reader(String command){
-        Pattern patternHelp = Pattern.compile("^[Hh]elp\s*");
-        Matcher matcherHelp = patternHelp.matcher(command);
-
-        Pattern patternRandom = Pattern.compile("^([Rr]andom|1)\s*");
-        Matcher matcherRandom = patternRandom.matcher(command);
-
-        Pattern patternTraining = Pattern.compile("^([Tt]raining|2)\s*");
-        Matcher matcherTraining = patternTraining.matcher(command);
-
-        Pattern patternFight = Pattern.compile("^([Ff]ight|3)\s*");
-        Matcher matcherFight = patternFight.matcher(command);
-
-        if (matcherHelp.matches()){
+        if (PATTERN_HELP.matcher(command).matches()) {
             System.out.println("Для сражения двух случайных персонажей введите \"random\"(1)\n" +
                     "Для сражения одного случайного и кастомного персонажа введите \"training\"(2)\n" +
                     "Для сражения двух кастомных персонажей введите \"fight\"(3)\n");
-        }
-        else if (matcherRandom.matches()){
+        } else if (PATTERN_RANDOM.matcher(command).matches()) {
             Person a = new Person("Анатолий"); //создание двух персонажей
             a.printCharacter(); //вывод характеристик
             Person b = new Person("Евдаким");
             b.printCharacter();
-
-            Person.battle(a,b); //запуск сражения
-        } else if (matcherTraining.matches()) {
+            Person.battle(a,b);//запуск сражения
+        } else if (PATTERN_TRAINING.matcher(command).matches()) {
             Person a = new Person();
             inputDate(a);
             Person b = new Person("Кирилл");
@@ -38,7 +28,8 @@ public class ConsoleInputReader {
             b.printCharacter();
 
             Person.battle(a,b);
-        } else if (matcherFight.matches()) {
+
+        } else if (PATTERN_FIGHT.matcher(command).matches()) {
             Person a = new Person();
             inputDate(a);
             Person b = new Person();
@@ -49,9 +40,7 @@ public class ConsoleInputReader {
 
             Person.battle(a,b);
 
-        }
-
-        else{
+        } else{
             System.out.println("Не удалось распознать команду");
         }
 
