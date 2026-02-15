@@ -42,8 +42,8 @@ public class Person {
     }
 
     public void printCharacter(){ //вывод всей информации
-        System.out.printf("Name = %s, Health = %d, Mental Health = %d, Strength = %d, IQ = %d, Speed = %d, Reaction = %d, Energy = %d\n", name, health,
-                mentalHealth, strength, iq, speed, reaction, energy);
+        System.out.printf("Name = %s, Health = %d, Mental Health = %d, Strength = %d, Dexterity = %d, IQ = %d, Speed = %d, Reaction = %d, Energy = %d\n", name, health,
+                mentalHealth, strength, dexterity, iq, speed, reaction, energy);
     }
 
 
