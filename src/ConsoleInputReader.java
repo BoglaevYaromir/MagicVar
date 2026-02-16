@@ -18,7 +18,7 @@ public class ConsoleInputReader {
             a.printCharacter(); //вывод характеристик
             Person b = new Person("Евдаким");
             b.printCharacter();
-            Person.battle(a,b);//запуск сражения
+            BattleService.battle(a,b);//запуск сражения
         } else if (PATTERN_TRAINING.matcher(command).matches()) {
             Person a = new Person();
             inputDate(a);
@@ -27,7 +27,7 @@ public class ConsoleInputReader {
             a.printCharacter();
             b.printCharacter();
 
-            Person.battle(a,b);
+            BattleService.battle(a,b);
 
         } else if (PATTERN_FIGHT.matcher(command).matches()) {
             Person a = new Person();
@@ -38,7 +38,7 @@ public class ConsoleInputReader {
             a.printCharacter();
             b.printCharacter();
 
-            Person.battle(a,b);
+            BattleService.battle(a,b);
 
         } else{
             System.out.println("Не удалось распознать команду");

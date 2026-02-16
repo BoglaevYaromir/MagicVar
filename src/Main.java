@@ -10,7 +10,7 @@ public class Main{
         Person b = new Person("Евдаким");
         b.printCharacter();
 
-        Person.battle(a,b); //запуск сражения
+        BattleService.battle(a,b); //запуск сражения
 
         System.out.println("Приветствуем вас в нашем невероятном мире! Введите help, чтобы увидеть возможные команды");
 
