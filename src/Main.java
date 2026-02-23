@@ -17,7 +17,7 @@ public class Main{
         Scanner scanner = new Scanner(System.in);
 
         while (true){
-            ConsoleInputReader.reader(scanner.next());
+            ConsoleInputReader.reader(scanner.next()); //запуск чтения команд
         }
     }
 }

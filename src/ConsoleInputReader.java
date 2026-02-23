@@ -3,13 +3,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ConsoleInputReader {
-    private static final Pattern PATTERN_HELP = Pattern.compile("^[Hh]elp\s*");
+    private static final Pattern PATTERN_HELP = Pattern.compile("^[Hh]elp\s*"); //паттерн регулярных выражений
     private static final Pattern PATTERN_RANDOM = Pattern.compile("^([Rr]andom|1)\s*");
     private static final Pattern PATTERN_TRAINING = Pattern.compile("^([Tt]raining|2)\s*");
     private static final Pattern PATTERN_FIGHT = Pattern.compile("^([Ff]ight|3)\s*");
 
     public static void reader(String command){
-        if (PATTERN_HELP.matcher(command).matches()) {
+        if (PATTERN_HELP.matcher(command).matches()) { //если паттерн совпадает с введённой командой
             System.out.println("Для сражения двух случайных персонажей введите \"random\"(1)\n" +
                     "Для сражения одного случайного и кастомного персонажа введите \"training\"(2)\n" +
                     "Для сражения двух кастомных персонажей введите \"fight\"(3)\n");
@@ -21,7 +21,7 @@ public class ConsoleInputReader {
             BattleService.battle(a,b);//запуск сражения
         } else if (PATTERN_TRAINING.matcher(command).matches()) {
             Person a = new Person();
-            inputDate(a);
+            inputDate(a);//ввод характеристик
             Person b = new Person("Кирилл");
 
             a.printCharacter();
@@ -47,7 +47,7 @@ public class ConsoleInputReader {
 
     }
 
-    private static void inputDate(Person person){
+    private static void inputDate(Person person){//ввод характеристик
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Введите имя персонажа");
