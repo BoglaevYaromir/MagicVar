@@ -41,6 +41,8 @@ public class Person {
         damage = (short)(strength + energy/100 + speed/10); //максимальный урон 225, минимальный 2
     }
 
+
+
     public void printCharacter(){ //вывод всей информации
         System.out.printf("Name = %s, Health = %d, Mental Health = %d, Strength = %d, Dexterity = %d, IQ = %d, Speed = %d, Reaction = %d, Energy = %d\n", name, health,
                 mentalHealth, strength, dexterity, iq, speed, reaction, energy);
