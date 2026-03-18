@@ -1,4 +1,35 @@
 public class Person {
+    static private final short MIN_STRENGTH = 5;
+    static private final short MAX_STRENGTH = 100;
+    static private final short STRENGTH_RANGE = MAX_STRENGTH - MIN_STRENGTH + 1;
+
+    static private final short MIN_HEALTH = 7;
+    static private final short HEALTH_RANGE = 6;
+
+    static private final short MIN_DEXTERITY = 1;
+    static private final short MAX_DEXTERITY = 200;
+    static private final short DEXTERITY_RANGE = MAX_DEXTERITY - MIN_DEXTERITY + 1;
+
+    static private final short MIN_ENERGY = 1;
+    static private final short MAX_ENERGY = 10_000;
+    static private final short ENERGY_RANGE = MAX_ENERGY - MIN_ENERGY + 1;
+
+    static private final short MIN_IQ = 50;
+    static private final short MAX_IQ = 300;
+    static private final short IQ_RANGE = MAX_IQ - MIN_IQ + 1;
+
+    static private final short SPEED_RANGE = 201;
+    static private final short SPEED_STRENGTH_DIVISOR = 2;
+
+    static private final short MIN_REACTION = 1;
+    static private final short MAX_REACTION = 200;
+    static private final short REACTION_RANGE = MAX_REACTION - MIN_REACTION + 1;
+
+    static private final short MENTAL_HEALTH_ENERGY_DIVISOR = 10;
+    static private final short COUNT_CHARACTERISTIC_FOR_MENTAL_HEALTH = 7;
+
+    static private final short DAMAGE_ENERGY_DIVISOR = 100;
+    static private final short DAMAGE_SPEED_DIVISOR = 10;
 
     private String name;
     private short health;
@@ -17,15 +48,15 @@ public class Person {
 
     public Person(String name){
         this.name = name;
-        strength = (short) (Math.random()*96 +5); //максимальная сила 100, минимальная 5, нужна для урона, также определяет здоровье и скорость
-        health = (short) (strength*10+Math.random()*strength*6-strength*3); //расчитывается как сила*10 +- до 30% силы, максимальное здоровье 1300, минимальное 35
-        dexterity = (short) (Math.random()*200+1); //максимальная гибкость 200, используется при вычислении шанса уворота
-        energy = (short) (Math.random()*10000+1); //максимальная энергия 10_000, нужна для урона и защиты
-        iq = (short) (Math.random()*251 + 50); //максимальный IQ 300, минимальный 50, нужен для шанса уворота
-        speed = (short) (Math.random()*201 + strength/2); //максимальная скорость 250, минимальная 2, нужна для урона и шанса уворота
-        reaction = (short) (Math.random()*200+1); //максимальная реакция 200, нужна для шанса уворота
-        mentalHealth = (short) ((health + strength + (energy/10) + iq + speed + reaction)/6);
-        damage = (short)(strength + energy/100 + speed/10); //максимальный урон 225, минимальный 2
+        strength = (short) (MIN_STRENGTH + Math.random()*STRENGTH_RANGE);
+        health = (short) (strength*(MIN_HEALTH + Math.random()*HEALTH_RANGE));
+        dexterity = (short) (MIN_DEXTERITY + Math.random()*DEXTERITY_RANGE); //максимальная гибкость 200, используется при вычислении шанса уворота
+        energy = (short) (MIN_ENERGY + Math.random()*ENERGY_RANGE); //максимальная энергия 10_000, нужна для урона и защиты
+        iq = (short) (MIN_IQ + Math.random()*IQ_RANGE); //максимальный IQ 300, минимальный 50, нужен для шанса уворота
+        speed = (short) ((short)(strength/SPEED_STRENGTH_DIVISOR) + Math.random()*SPEED_RANGE); //максимальная скорость 250, минимальная 2, нужна для урона и шанса уворота
+        reaction = (short) (MIN_REACTION + Math.random()*REACTION_RANGE); //максимальная реакция 200, нужна для шанса уворота
+        mentalHealth = (short) ((health + strength + (energy/MENTAL_HEALTH_ENERGY_DIVISOR) + iq + speed + reaction + dexterity)/COUNT_CHARACTERISTIC_FOR_MENTAL_HEALTH);
+        damage = (short)(strength + energy/DAMAGE_ENERGY_DIVISOR + speed/DAMAGE_SPEED_DIVISOR); //максимальный урон 225, минимальный 2
     }
 
     public Person(String name, short strength, short health, short dexterity, short energy, short iq, short speed, short reaction){
@@ -37,8 +68,8 @@ public class Person {
         this.iq = iq; //максимальный IQ 300, минимальный 50, нужен для шанса уворота
         this.speed = speed; //максимальная скорость 250, минимальная 2, нужна для урона и шанса уворота
         this.reaction = reaction; //максимальная реакция 200, нужна для шанса уворота
-        mentalHealth = (short) ((health + strength + (energy/10) + iq + speed + reaction)/6);
-        damage = (short)(strength + energy/100 + speed/10); //максимальный урон 225, минимальный 2
+        mentalHealth = (short) ((health + strength + (energy/MENTAL_HEALTH_ENERGY_DIVISOR) + iq + speed + reaction + dexterity)/COUNT_CHARACTERISTIC_FOR_MENTAL_HEALTH);
+        damage = (short)(strength + energy/DAMAGE_ENERGY_DIVISOR + speed/DAMAGE_SPEED_DIVISOR); //максимальный урон 225, минимальный 2
     }
 
 
@@ -62,6 +93,7 @@ public class Person {
     public short getHealth(){
         return health;
     }
+
     public short getMentalHealth(){
         return mentalHealth;
     }

@@ -5,14 +5,16 @@ import java.util.regex.Pattern;
 public class Main{
     static void main() {
 
-        Person a = new Person("Анатолий"); //создание двух персонажей
-        a.printCharacter(); //вывод характеристик
-        Person b = new Person("Евдаким");
-        b.printCharacter();
+        Person person1 = new Person("Анатолий"); //создание двух персонажей
+        person1.printCharacter(); //вывод характеристик
+        Person person2 = new Person("Евдаким");
+        person2.printCharacter();
 
-        BattleService.battle(a,b); //запуск сражения
+        BattleService.battleSimulation(person1,person2); //запуск сражения
 
-        System.out.println("Приветствуем вас в нашем невероятном мире! Введите help, чтобы увидеть возможные команды");
+        String welcomeForBeginningGame = "Приветствуем вас в нашем невероятном мире! Введите help, чтобы увидеть возможные команды";
+
+        System.out.println(welcomeForBeginningGame);
 
         Scanner scanner = new Scanner(System.in);
 

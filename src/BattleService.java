@@ -1,5 +1,5 @@
 public class BattleService {
-    public static void battle(Person a, Person b){
+    public static void battleSimulation(Person a, Person b){
         double chanceDodgeA = (double) ((a.getDexterity() + a.getReaction()) / 2 + a.getIq() - b.getIq() - b.getSpeed()) /450; //вычисление шанса уворота персонажа (значение до 448/450)
         double chanceDodgeB = (double) ((b.getDexterity() + b.getReaction()) / 2 + b.getIq() - a.getIq() - a.getSpeed()) /450;
 
@@ -9,12 +9,12 @@ public class BattleService {
             a.setDamage(); //установление наносимого урона (надо из-за меняющейся энергии)
             b.setDamage();
 
-            boolean DodgeA = chanceDodgeA>Math.random(); //результат уклонения
-            boolean DodgeB = chanceDodgeB>Math.random();
+            boolean successDodgeA = chanceDodgeA>Math.random(); //результат уклонения
+            boolean successDodgeB = chanceDodgeB>Math.random();
 
             if (a.getSpeed()>b.getSpeed() || (a.getSpeed() == b.getSpeed() && Math.random()>0.5)){ //определение первой атаки
-                if (!DodgeB){ //проверка уворота
-                    attack(a,b);//установка нового здоровья и энергии
+                if (!successDodgeB){ //проверка уворота
+                    inflictDamage(a,b);//установка нового здоровья и энергии
                     if (b.getHealth() <= 0){ //Если b мёртв
                         continue; //заканчиваем цикл
                     }
@@ -24,8 +24,8 @@ public class BattleService {
                     System.out.printf("%s уклонился от атаки %s\n", b.getName(), a.getName()); //вывод уворота
                 }
 
-                if (!DodgeA){ //аналогично
-                    attack(b,a);
+                if (!successDodgeA){ //аналогично
+                    inflictDamage(b,a);
                 }
 
                 else{
@@ -34,8 +34,8 @@ public class BattleService {
             }
 
             else{
-                if (!DodgeA){
-                    attack(b,a);
+                if (!successDodgeA){
+                    inflictDamage(b,a);
                     if (a.getHealth() <= 0){
                         continue;
                     }
@@ -45,8 +45,8 @@ public class BattleService {
                     System.out.printf("%s уклонился от атаки %s\n", a.getName(), b.getName()); //вывод уворота
                 }
 
-                if (!DodgeB){
-                    attack(a,b);
+                if (!successDodgeB){
+                    inflictDamage(a,b);
                 }
 
                 else{
@@ -65,7 +65,7 @@ public class BattleService {
 
     }
 
-    private static void attack(Person attacker, Person defender){ //установка урона
+    private static void inflictDamage(Person attacker, Person defender){ //установка урона
         if (defender.getEnergy()==0){ //если энергия = 0
             System.out.printf("%s нанёс %d урона персонажу %s\n", attacker.getName(), attacker.getDamage(),defender.getName()); //вывод нанесённого урона
             defender.setHealth((short)(defender.getHealth()-(attacker.getDamage()))); //весь урон идёт на здоровье

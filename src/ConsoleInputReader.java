@@ -14,31 +14,31 @@ public class ConsoleInputReader {
                     "Для сражения одного случайного и кастомного персонажа введите \"training\"(2)\n" +
                     "Для сражения двух кастомных персонажей введите \"fight\"(3)\n");
         } else if (PATTERN_RANDOM.matcher(command).matches()) {
-            Person a = new Person("Анатолий"); //создание двух персонажей
-            a.printCharacter(); //вывод характеристик
-            Person b = new Person("Евдаким");
-            b.printCharacter();
-            BattleService.battle(a,b);//запуск сражения
+            Person person1 = new Person("Анатолий"); //создание двух персонажей
+            person1.printCharacter(); //вывод характеристик
+            Person person2 = new Person("Евдаким");
+            person2.printCharacter();
+            BattleService.battleSimulation(person1,person2);//запуск сражения
         } else if (PATTERN_TRAINING.matcher(command).matches()) {
-            Person a = new Person();
-            inputDate(a);//ввод характеристик
-            Person b = new Person("Кирилл");
+            Person person1 = new Person();
+            inputData(person1);//ввод характеристик
+            Person person2 = new Person("Кирилл");
 
-            a.printCharacter();
-            b.printCharacter();
+            person1.printCharacter();
+            person2.printCharacter();
 
-            BattleService.battle(a,b);
+            BattleService.battleSimulation(person1,person2);
 
         } else if (PATTERN_FIGHT.matcher(command).matches()) {
-            Person a = new Person();
-            inputDate(a);
-            Person b = new Person();
-            inputDate(b);
+            Person person1 = new Person();
+            inputData(person1);
+            Person person2 = new Person();
+            inputData(person2);
 
-            a.printCharacter();
-            b.printCharacter();
+            person1.printCharacter();
+            person2.printCharacter();
 
-            BattleService.battle(a,b);
+            BattleService.battleSimulation(person1,person2);
 
         } else{
             System.out.println("Не удалось распознать команду");
@@ -47,7 +47,7 @@ public class ConsoleInputReader {
 
     }
 
-    private static void inputDate(Person person){//ввод характеристик
+    private static void inputData(Person person){//ввод характеристик
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Введите имя персонажа");
@@ -82,8 +82,8 @@ public class ConsoleInputReader {
         short reaction = scanner.nextShort();
         person.setReaction(reaction);
 
-        person.setDamage();
-        person.setMentalHealth();
+        person.setDamage();//установка урона
+        person.setMentalHealth();//установка ментального здоровья
     }
 
 }
