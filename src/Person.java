@@ -14,10 +14,6 @@ public class Person {
     static private final short MAX_ENERGY = 10_000;
     static private final short ENERGY_RANGE = MAX_ENERGY - MIN_ENERGY + 1;
 
-    static private final short MIN_IQ = 50;
-    static private final short MAX_IQ = 300;
-    static private final short IQ_RANGE = MAX_IQ - MIN_IQ + 1;
-
     static private final short SPEED_RANGE = 201;
     static private final short SPEED_STRENGTH_DIVISOR = 2;
 
@@ -52,7 +48,7 @@ public class Person {
         health = (short) (strength*(MIN_HEALTH + Math.random()*HEALTH_RANGE));
         dexterity = (short) (MIN_DEXTERITY + Math.random()*DEXTERITY_RANGE); //максимальная гибкость 200, используется при вычислении шанса уворота
         energy = (short) (MIN_ENERGY + Math.random()*ENERGY_RANGE); //максимальная энергия 10_000, нужна для урона и защиты
-        iq = (short) (MIN_IQ + Math.random()*IQ_RANGE); //максимальный IQ 300, минимальный 50, нужен для шанса уворота
+        iq = generateIQ(); //максимальный IQ 300, минимальный 50, нужен для шанса уворота
         speed = (short) ((short)(strength/SPEED_STRENGTH_DIVISOR) + Math.random()*SPEED_RANGE); //максимальная скорость 250, минимальная 2, нужна для урона и шанса уворота
         reaction = (short) (MIN_REACTION + Math.random()*REACTION_RANGE); //максимальная реакция 200, нужна для шанса уворота
         mentalHealth = (short) ((health + strength + (energy/MENTAL_HEALTH_ENERGY_DIVISOR) + iq + speed + reaction + dexterity)/COUNT_CHARACTERISTIC_FOR_MENTAL_HEALTH);
@@ -154,5 +150,63 @@ public class Person {
     }
     public void setDamage() {
         damage = (short)(strength + energy/100 + speed/10);
+    }
+
+    private short generateIQ(){
+        final double RANDOM_NUMBER_FROM_PERCENT = Math.random()*100;
+
+        final double PERCENT_VERY_LOW_IQ = 1.5;
+        boolean isVeryLowIq = RANDOM_NUMBER_FROM_PERCENT < PERCENT_VERY_LOW_IQ;
+        final short MIN_IQ = 50;
+        final short VERY_LOW_IQ = 70;
+        if (isVeryLowIq){
+            final short RANGE_VERY_LOW_IQ = VERY_LOW_IQ - MIN_IQ;
+            return (short)(MIN_IQ + Math.random()*RANGE_VERY_LOW_IQ);
+        }
+
+        final double PERCENT_LOW_IQ = PERCENT_VERY_LOW_IQ + 7;
+        boolean isLowIq = RANDOM_NUMBER_FROM_PERCENT < PERCENT_LOW_IQ;
+        final short LOW_IQ = 80;
+        if (isLowIq){
+            final short RANGE_LOW_IQ = LOW_IQ - VERY_LOW_IQ;
+            return (short)(VERY_LOW_IQ + Math.random()*RANGE_LOW_IQ);
+        }
+
+        final double PERCENT_LOWER_MIDDLE_IQ = PERCENT_LOW_IQ + 16;
+        boolean isLowerMiddleIq = RANDOM_NUMBER_FROM_PERCENT < PERCENT_LOWER_MIDDLE_IQ;
+        final short LOWER_MIDDLE_IQ = 90;
+        if (isLowerMiddleIq){
+            final short RANGE_LOWER_MIDDLE_IQ = LOWER_MIDDLE_IQ - LOW_IQ;
+            return (short)(LOW_IQ + Math.random()*RANGE_LOWER_MIDDLE_IQ);
+        }
+
+        final double PERCENT_MIDDLE_IQ = PERCENT_LOWER_MIDDLE_IQ + 50;
+        boolean isMiddleIq = RANDOM_NUMBER_FROM_PERCENT < PERCENT_MIDDLE_IQ;
+        final short MIDDLE_IQ = 110;
+        if (isMiddleIq){
+            final short RANGE_MIDDLE_IQ = MIDDLE_IQ - LOWER_MIDDLE_IQ;
+            return (short)(LOWER_MIDDLE_IQ + Math.random()*RANGE_MIDDLE_IQ);
+        }
+
+        final double PERCENT_HIGHER_MIDDLE_IQ = PERCENT_MIDDLE_IQ + 16;
+        boolean isHigherMiddleIq = RANDOM_NUMBER_FROM_PERCENT < PERCENT_HIGHER_MIDDLE_IQ;
+        final short HIGHER_MIDDLE_IQ = 120;
+        if (isHigherMiddleIq){
+            final short RANGE_HIGHER_MIDDLE_IQ = HIGHER_MIDDLE_IQ - MIDDLE_IQ;
+            return (short)(MIDDLE_IQ + Math.random()*RANGE_HIGHER_MIDDLE_IQ);
+        }
+
+        final double PERCENT_HIGH_IQ = PERCENT_HIGHER_MIDDLE_IQ + 7;
+        boolean isHighIq = RANDOM_NUMBER_FROM_PERCENT < PERCENT_HIGH_IQ;
+        final short HIGH_IQ = 130;
+        if (isHighIq){
+            final short RANGE_HIGH_IQ = HIGH_IQ - HIGHER_MIDDLE_IQ;
+            return (short)(HIGHER_MIDDLE_IQ + Math.random()*RANGE_HIGH_IQ);
+        }
+
+        final short MAX_IQ = 300;
+        final short RANGE_VERY_HIGH_IO = MAX_IQ - HIGH_IQ;
+        return (short)(HIGH_IQ + Math.random()*RANGE_VERY_HIGH_IO);
+
     }
 }
