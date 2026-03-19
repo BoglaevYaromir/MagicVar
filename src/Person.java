@@ -89,82 +89,70 @@ public class Person {
     public String getName() {
         return name;
     }
+    public void setName(String name){
+        this.name = name;
+    }
 
     public short getHealth(){
         return health;
+    }
+    public void setHealth(short health){
+        this.health = health;
     }
 
     public short getMentalHealth(){
         return mentalHealth;
     }
+    public void setMentalHealth() {
+        this.mentalHealth = (short) ((health + strength + (energy/10) + iq + speed + reaction)/6);
+    }
 
     public short getStrength() {
         return strength;
+    }
+    public void setStrength(short strength) {
+        this.strength = strength;
     }
 
     public short getDexterity() {
         return dexterity;
     }
+    public void setDexterity(short dexterity) {
+        this.dexterity = dexterity;
+    }
 
     public short getIq() {
         return iq;
+    }
+    public void setIq(short iq) {
+        this.iq = iq;
     }
 
     public short getSpeed() {
         return speed;
     }
+    public void setSpeed(short speed) {
+        this.speed = speed;
+    }
 
     public short getEnergy() {
         return energy;
+    }
+    public void setEnergy(short energy) {
+        this.energy = energy;
     }
 
     public short getReaction() {
         return reaction;
     }
-
-    public short getDamage() {
-        return damage;
-    }
-
-    public void setName(String name){
-        this.name = name;
-    }
-
-    public void setHealth(short health){
-        this.health = health;
-    }
-
     public void setReaction(short reaction) {
         this.reaction = reaction;
     }
 
-    public void setEnergy(short energy) {
-        this.energy = energy;
+    public short getDamage() {
+        return damage;
     }
-
-    public void setIq(short iq) {
-        this.iq = iq;
-    }
-
-    public void setMentalHealth() {
-        this.mentalHealth = (short) ((health + strength + (energy/10) + iq + speed + reaction)/6);
-    }
-
-    public void setSpeed(short speed) {
-        this.speed = speed;
-    }
-
-    public void setStrength(short strength) {
-        this.strength = strength;
-    }
-
-    public void setDexterity(short dexterity) {
-        this.dexterity = dexterity;
-    }
-
     public void setDamage() {
         damage = (short)(strength + energy/100 + speed/10);
     }
-
-
 }
