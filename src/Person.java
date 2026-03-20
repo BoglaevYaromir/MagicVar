@@ -16,6 +16,8 @@ public class Person {
     static private final short MAX_ENERGY = 10_000;
     static private final short ENERGY_RANGE = MAX_ENERGY - MIN_ENERGY + 1;
 
+    static private final short MIN_SPEED = 2;
+    static private final short MAX_SPEED = 250;
     static private final short SPEED_RANGE = 201;
     static private final short SPEED_STRENGTH_DIVISOR = 2;
 
@@ -53,6 +55,19 @@ public class Person {
     static private final short MAX_ENERGY_FOR_LEVEL_1 = 6500;
     static private final short MAX_ENERGY_FOR_LEVEL_0 = MAX_ENERGY;
 
+    static private final short MAX_SPEED_FOR_LEVEL_4 = 38;
+    static private final short MAX_SPEED_FOR_LEVEL_3 = 75;
+    static private final short MAX_SPEED_FOR_LEVEL_2 = 113;
+    static private final short MAX_SPEED_FOR_LEVEL_1 = 163;
+    static private final short MAX_SPEED_FOR_LEVEL_0 = MAX_SPEED;
+
+    static private final short MAX_REACTION_FOR_LEVEL_4 = 30;
+    static private final short MAX_REACTION_FOR_LEVEL_3 = 60;
+    static private final short MAX_REACTION_FOR_LEVEL_2 = 90;
+    static private final short MAX_REACTION_FOR_LEVEL_1 = 130;
+    static private final short MAX_REACTION_FOR_LEVEL_0 = MAX_REACTION;
+
+
     private String name;
     private short health;
     private short mentalHealth;
@@ -77,16 +92,21 @@ public class Person {
         iq = generateIQ(); //максимальный IQ 300, минимальный 50, нужен для шанса уворота
         speed = (short) ((short)(strength/SPEED_STRENGTH_DIVISOR) + Math.random()*SPEED_RANGE); //максимальная скорость 250, минимальная 2, нужна для урона и шанса уворота
         reaction = (short) (MIN_REACTION + Math.random()*REACTION_RANGE); //максимальная реакция 200, нужна для шанса уворота
-        mentalHealth = (short) ((health + strength + (energy/MENTAL_HEALTH_ENERGY_DIVISOR) + iq + speed + reaction + dexterity)/COUNT_CHARACTERISTIC_FOR_MENTAL_HEALTH);
-        damage = (short)(strength + energy/DAMAGE_ENERGY_DIVISOR + speed/DAMAGE_SPEED_DIVISOR); //максимальный урон 225, минимальный 2
+        setMentalHealth();
+        setDamage(); //максимальный урон 225, минимальный 2
     }
 
     public Person(String name, byte level){
         this.name = name;
-        setStrengthForLevel(level);
-        setHealthForLevel(level);
-        setDexterityForLevel(level);
-        setEnergyForLevel(level);
+        setStrength(setCharacterForLevel(MIN_STRENGTH, MAX_STRENGTH_FOR_LEVEL_4,MAX_STRENGTH_FOR_LEVEL_3,MAX_STRENGTH_FOR_LEVEL_2,MAX_STRENGTH_FOR_LEVEL_1,MAX_STRENGTH_FOR_LEVEL_0,level));
+        setHealth(setCharacterForLevel(MIN_HEALTH, MAX_HEALTH_FOR_LEVEL_4,MAX_HEALTH_FOR_LEVEL_3,MAX_HEALTH_FOR_LEVEL_2,MAX_HEALTH_FOR_LEVEL_1,MAX_HEALTH_FOR_LEVEL_0,level));
+        setDexterity(setCharacterForLevel(MIN_DEXTERITY, MAX_DEXTERITY_FOR_LEVEL_4,MAX_DEXTERITY_FOR_LEVEL_3,MAX_DEXTERITY_FOR_LEVEL_2,MAX_DEXTERITY_FOR_LEVEL_1,MAX_DEXTERITY_FOR_LEVEL_0,level));
+        setEnergy(setCharacterForLevel(MIN_ENERGY, MAX_ENERGY_FOR_LEVEL_4,MAX_ENERGY_FOR_LEVEL_3,MAX_ENERGY_FOR_LEVEL_2,MAX_ENERGY_FOR_LEVEL_1,MAX_ENERGY_FOR_LEVEL_0,level));
+        setIq(generateIQ());
+        setSpeed(setCharacterForLevel(MIN_SPEED, MAX_SPEED_FOR_LEVEL_4,MAX_SPEED_FOR_LEVEL_3,MAX_SPEED_FOR_LEVEL_2,MAX_SPEED_FOR_LEVEL_1,MAX_SPEED_FOR_LEVEL_0,level));
+        setReaction(setCharacterForLevel(MIN_REACTION, MAX_REACTION_FOR_LEVEL_4,MAX_REACTION_FOR_LEVEL_3,MAX_REACTION_FOR_LEVEL_2,MAX_REACTION_FOR_LEVEL_1,MAX_REACTION_FOR_LEVEL_0,level));
+        setMentalHealth();
+        setDamage();
     }
 
     public Person(String name, short strength, short health, short dexterity, short energy, short iq, short speed, short reaction){
@@ -98,8 +118,8 @@ public class Person {
         this.iq = iq; //максимальный IQ 300, минимальный 50, нужен для шанса уворота
         this.speed = speed; //максимальная скорость 250, минимальная 2, нужна для урона и шанса уворота
         this.reaction = reaction; //максимальная реакция 200, нужна для шанса уворота
-        mentalHealth = (short) ((health + strength + (energy/MENTAL_HEALTH_ENERGY_DIVISOR) + iq + speed + reaction + dexterity)/COUNT_CHARACTERISTIC_FOR_MENTAL_HEALTH);
-        damage = (short)(strength + energy/DAMAGE_ENERGY_DIVISOR + speed/DAMAGE_SPEED_DIVISOR); //максимальный урон 225, минимальный 2
+        setMentalHealth();
+        setDamage();
     }
 
     public void printCharacter(){ //вывод всей информации
@@ -129,7 +149,7 @@ public class Person {
         return mentalHealth;
     }
     public void setMentalHealth() {
-        this.mentalHealth = (short) ((health + strength + (energy/10) + iq + speed + reaction)/6);
+        this.mentalHealth = (short)((health + strength + (energy/MENTAL_HEALTH_ENERGY_DIVISOR) + iq + speed + reaction + dexterity)/COUNT_CHARACTERISTIC_FOR_MENTAL_HEALTH);
     }
 
     public short getStrength() {
@@ -178,99 +198,7 @@ public class Person {
         return damage;
     }
     public void setDamage() {
-        damage = (short)(strength + energy/100 + speed/10);
-    }
-
-    private void setStrengthForLevel(byte level){
-        if (level == 4){
-            final short RANGE_STRENGTH_LEVEL_4 = MAX_STRENGTH_FOR_LEVEL_4 - MIN_STRENGTH + 1;
-            setStrength((short)(MIN_STRENGTH + Math.random()*RANGE_STRENGTH_LEVEL_4));
-        }
-        else if (level == 3){
-            final short RANGE_STRENGTH_LEVEL_3 = MAX_STRENGTH_FOR_LEVEL_3 - MAX_STRENGTH_FOR_LEVEL_4 + 1;
-            setStrength((short)(MAX_STRENGTH_FOR_LEVEL_4 + Math.random()*RANGE_STRENGTH_LEVEL_3));
-        }
-        else if (level == 2){
-            final short RANGE_STRENGTH_LEVEL_2 = MAX_STRENGTH_FOR_LEVEL_2 - MAX_STRENGTH_FOR_LEVEL_3 + 1;
-            setStrength((short)(MAX_STRENGTH_FOR_LEVEL_3 + Math.random()*RANGE_STRENGTH_LEVEL_2));
-        }
-        else if (level == 1){
-            final short RANGE_STRENGTH_LEVEL_1 = MAX_STRENGTH_FOR_LEVEL_1 - MAX_STRENGTH_FOR_LEVEL_2 + 1;
-            setStrength((short)(MAX_STRENGTH_FOR_LEVEL_2 + Math.random()*RANGE_STRENGTH_LEVEL_1));
-        }
-        else if (level == 0){
-            final short RANGE_STRENGTH_LEVEL_0 = MAX_STRENGTH_FOR_LEVEL_0 - MAX_STRENGTH_FOR_LEVEL_1 + 1;
-            setStrength((short)(MAX_STRENGTH_FOR_LEVEL_1 + Math.random()*RANGE_STRENGTH_LEVEL_0));
-        }
-    }
-
-    private void setHealthForLevel(byte level){
-        if (level == 4){
-            final short RANGE_HEALTH_LEVEL_4 = MAX_HEALTH_FOR_LEVEL_4 - MIN_HEALTH + 1;
-            setHealth((short)(MIN_HEALTH + Math.random()*RANGE_HEALTH_LEVEL_4));
-        }
-        else if (level == 3){
-            final short RANGE_HEALTH_LEVEL_3 = MAX_HEALTH_FOR_LEVEL_3 - MAX_HEALTH_FOR_LEVEL_4 + 1;
-            setHealth((short)(MAX_HEALTH_FOR_LEVEL_4 + Math.random()*RANGE_HEALTH_LEVEL_3));
-        }
-        else if (level == 2){
-            final short RANGE_HEALTH_LEVEL_2 = MAX_HEALTH_FOR_LEVEL_2 - MAX_HEALTH_FOR_LEVEL_3 + 1;
-            setHealth((short)(MAX_HEALTH_FOR_LEVEL_3 + Math.random()*RANGE_HEALTH_LEVEL_2));
-        }
-        else if (level == 1){
-            final short RANGE_HEALTH_LEVEL_1 = MAX_HEALTH_FOR_LEVEL_1 - MAX_HEALTH_FOR_LEVEL_2 + 1;
-            setHealth((short)(MAX_HEALTH_FOR_LEVEL_2 + Math.random()*RANGE_HEALTH_LEVEL_1));
-        }
-        else if (level == 0){
-            final short RANGE_HEALTH_LEVEL_0 = MAX_HEALTH_FOR_LEVEL_0 - MAX_HEALTH_FOR_LEVEL_1 + 1;
-            setHealth((short)(MAX_HEALTH_FOR_LEVEL_1 + Math.random()*RANGE_HEALTH_LEVEL_0));
-        }
-    }
-
-    private void setDexterityForLevel(byte level){
-        if (level == 4){
-            final short RANGE_DEXTERITY_LEVEL_4 = MAX_DEXTERITY_FOR_LEVEL_4 - MIN_DEXTERITY + 1;
-            setDexterity((short)(MIN_DEXTERITY + Math.random()*RANGE_DEXTERITY_LEVEL_4));
-        }
-        else if (level == 3){
-            final short RANGE_DEXTERITY_LEVEL_3 = MAX_DEXTERITY_FOR_LEVEL_3 - MAX_DEXTERITY_FOR_LEVEL_4 + 1;
-            setDexterity((short)(MAX_DEXTERITY_FOR_LEVEL_4 + Math.random()*RANGE_DEXTERITY_LEVEL_3));
-        }
-        else if (level == 2){
-            final short RANGE_DEXTERITY_LEVEL_2 = MAX_DEXTERITY_FOR_LEVEL_2 - MAX_DEXTERITY_FOR_LEVEL_3 + 1;
-            setDexterity((short)(MAX_DEXTERITY_FOR_LEVEL_3 + Math.random()*RANGE_DEXTERITY_LEVEL_2));
-        }
-        else if (level == 1){
-            final short RANGE_DEXTERITY_LEVEL_1 = MAX_DEXTERITY_FOR_LEVEL_1 - MAX_DEXTERITY_FOR_LEVEL_2 + 1;
-            setDexterity((short)(MAX_DEXTERITY_FOR_LEVEL_2 + Math.random()*RANGE_DEXTERITY_LEVEL_1));
-        }
-        else if (level == 0){
-            final short RANGE_DEXTERITY_LEVEL_0 = MAX_DEXTERITY_FOR_LEVEL_0 - MAX_DEXTERITY_FOR_LEVEL_1 + 1;
-            setDexterity((short)(MAX_DEXTERITY_FOR_LEVEL_1 + Math.random()*RANGE_DEXTERITY_LEVEL_0));
-        }
-    }
-
-    private void setEnergyForLevel(byte level){
-        if (level == 4){
-            final short RANGE_ENERGY_LEVEL_4 = MAX_ENERGY_FOR_LEVEL_4 - MIN_ENERGY + 1;
-            setEnergy((short)(MIN_ENERGY + Math.random()*RANGE_ENERGY_LEVEL_4));
-        }
-        else if (level == 3){
-            final short RANGE_ENERGY_LEVEL_3 = MAX_ENERGY_FOR_LEVEL_3 - MAX_ENERGY_FOR_LEVEL_4 + 1;
-            setEnergy((short)(MAX_ENERGY_FOR_LEVEL_4 + Math.random()*RANGE_ENERGY_LEVEL_3));
-        }
-        else if (level == 2){
-            final short RANGE_ENERGY_LEVEL_2 = MAX_ENERGY_FOR_LEVEL_2 - MAX_ENERGY_FOR_LEVEL_3 + 1;
-            setEnergy((short)(MAX_ENERGY_FOR_LEVEL_3 + Math.random()*RANGE_ENERGY_LEVEL_2));
-        }
-        else if (level == 1){
-            final short RANGE_ENERGY_LEVEL_1 = MAX_ENERGY_FOR_LEVEL_1 - MAX_ENERGY_FOR_LEVEL_2 + 1;
-            setEnergy((short)(MAX_ENERGY_FOR_LEVEL_2 + Math.random()*RANGE_ENERGY_LEVEL_1));
-        }
-        else if (level == 0){
-            final short RANGE_ENERGY_LEVEL_0 = MAX_ENERGY_FOR_LEVEL_0 - MAX_ENERGY_FOR_LEVEL_1 + 1;
-            setEnergy((short)(MAX_ENERGY_FOR_LEVEL_1 + Math.random()*RANGE_ENERGY_LEVEL_0));
-        }
+        damage = (short)(strength + energy/DAMAGE_ENERGY_DIVISOR + speed/DAMAGE_SPEED_DIVISOR);
     }
 
     private short setCharacterForLevel(short MIN_CHARACTER,short MAX_CHARACTER_FOR_LEVEL_4, short MAX_CHARACTER_FOR_LEVEL_3, short MAX_CHARACTER_FOR_LEVEL_2, short MAX_CHARACTER_FOR_LEVEL_1, short MAX_CHARACTER_FOR_LEVEL_0, byte level){
