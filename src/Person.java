@@ -207,20 +207,20 @@ public class Person {
             return (short)(MIN_CHARACTER + Math.random()*RANGE_CHARACTER_LEVEL_4);
         }
         else if (level == 3){
-            final short RANGE_CHARACTER_LEVEL_3 =(short)(MAX_CHARACTER_FOR_LEVEL_3 - MAX_CHARACTER_FOR_LEVEL_4 + 1);
-            return (short)(MAX_CHARACTER_FOR_LEVEL_4 + Math.random()*RANGE_CHARACTER_LEVEL_3);
+            final short RANGE_CHARACTER_LEVEL_3 =(short)(MAX_CHARACTER_FOR_LEVEL_3 - MAX_CHARACTER_FOR_LEVEL_4);
+            return (short)(MAX_CHARACTER_FOR_LEVEL_4 + 1 + Math.random()*RANGE_CHARACTER_LEVEL_3);
         }
         else if (level == 2){
-            final short RANGE_CHARACTER_LEVEL_2 =(short)(MAX_CHARACTER_FOR_LEVEL_2 - MAX_CHARACTER_FOR_LEVEL_3 + 1);
-            return (short)(MAX_CHARACTER_FOR_LEVEL_3 + Math.random()*RANGE_CHARACTER_LEVEL_2);
+            final short RANGE_CHARACTER_LEVEL_2 =(short)(MAX_CHARACTER_FOR_LEVEL_2 - MAX_CHARACTER_FOR_LEVEL_3);
+            return (short)(MAX_CHARACTER_FOR_LEVEL_3 + 1 + Math.random()*RANGE_CHARACTER_LEVEL_2);
         }
         else if (level == 1){
-            final short RANGE_CHARACTER_LEVEL_1 =(short)(MAX_CHARACTER_FOR_LEVEL_1 - MAX_CHARACTER_FOR_LEVEL_2 + 1);
-            return (short)(MAX_CHARACTER_FOR_LEVEL_2 + Math.random()*RANGE_CHARACTER_LEVEL_1);
+            final short RANGE_CHARACTER_LEVEL_1 =(short)(MAX_CHARACTER_FOR_LEVEL_1 - MAX_CHARACTER_FOR_LEVEL_2);
+            return (short)(MAX_CHARACTER_FOR_LEVEL_2 + 1 + Math.random()*RANGE_CHARACTER_LEVEL_1);
         }
         else {
-            final short RANGE_CHARACTER_LEVEL_0 =(short)(MAX_CHARACTER_FOR_LEVEL_0 - MAX_CHARACTER_FOR_LEVEL_1 + 1);
-            return (short)(MAX_CHARACTER_FOR_LEVEL_1 + Math.random()*RANGE_CHARACTER_LEVEL_0);
+            final short RANGE_CHARACTER_LEVEL_0 =(short)(MAX_CHARACTER_FOR_LEVEL_0 - MAX_CHARACTER_FOR_LEVEL_1);
+            return (short)(MAX_CHARACTER_FOR_LEVEL_1 + 1 + Math.random()*RANGE_CHARACTER_LEVEL_0);
         }
     }
 
@@ -240,45 +240,45 @@ public class Person {
         boolean isLowIq = RANDOM_NUMBER_FROM_PERCENT < PERCENT_LOW_IQ;
         final short MAX_LOW_IQ = 80;
         if (isLowIq){
-            final short RANGE_LOW_IQ = MAX_LOW_IQ - MAX_VERY_LOW_IQ + 1;
-            return (short)(MAX_VERY_LOW_IQ + Math.random()*RANGE_LOW_IQ);
+            final short RANGE_LOW_IQ = MAX_LOW_IQ - MAX_VERY_LOW_IQ;
+            return (short)(MAX_VERY_LOW_IQ + 1 + Math.random()*RANGE_LOW_IQ);
         }
 
         final double PERCENT_LOWER_MIDDLE_IQ = PERCENT_LOW_IQ + 16;
         boolean isLowerMiddleIq = RANDOM_NUMBER_FROM_PERCENT < PERCENT_LOWER_MIDDLE_IQ;
         final short MAX_LOWER_MIDDLE_IQ = 90;
         if (isLowerMiddleIq){
-            final short RANGE_LOWER_MIDDLE_IQ = MAX_LOWER_MIDDLE_IQ - MAX_LOW_IQ + 1;
-            return (short)(MAX_LOW_IQ + Math.random()*RANGE_LOWER_MIDDLE_IQ);
+            final short RANGE_LOWER_MIDDLE_IQ = MAX_LOWER_MIDDLE_IQ - MAX_LOW_IQ;
+            return (short)(MAX_LOW_IQ + 1 + Math.random()*RANGE_LOWER_MIDDLE_IQ);
         }
 
         final double PERCENT_MIDDLE_IQ = PERCENT_LOWER_MIDDLE_IQ + 50;
         boolean isMiddleIq = RANDOM_NUMBER_FROM_PERCENT < PERCENT_MIDDLE_IQ;
         final short MAX_MIDDLE_IQ = 110;
         if (isMiddleIq){
-            final short RANGE_MIDDLE_IQ = MAX_MIDDLE_IQ - MAX_LOWER_MIDDLE_IQ + 1;
-            return (short)(MAX_LOWER_MIDDLE_IQ + Math.random()*RANGE_MIDDLE_IQ);
+            final short RANGE_MIDDLE_IQ = MAX_MIDDLE_IQ - MAX_LOWER_MIDDLE_IQ;
+            return (short)(MAX_LOWER_MIDDLE_IQ + 1 + Math.random()*RANGE_MIDDLE_IQ);
         }
 
         final double PERCENT_HIGHER_MIDDLE_IQ = PERCENT_MIDDLE_IQ + 16;
         boolean isHigherMiddleIq = RANDOM_NUMBER_FROM_PERCENT < PERCENT_HIGHER_MIDDLE_IQ;
         final short MAX_HIGHER_MIDDLE_IQ = 120;
         if (isHigherMiddleIq){
-            final short RANGE_HIGHER_MIDDLE_IQ = MAX_HIGHER_MIDDLE_IQ - MAX_MIDDLE_IQ + 1;
-            return (short)(MAX_MIDDLE_IQ + Math.random()*RANGE_HIGHER_MIDDLE_IQ);
+            final short RANGE_HIGHER_MIDDLE_IQ = MAX_HIGHER_MIDDLE_IQ - MAX_MIDDLE_IQ;
+            return (short)(MAX_MIDDLE_IQ + 1 + Math.random()*RANGE_HIGHER_MIDDLE_IQ);
         }
 
         final double PERCENT_HIGH_IQ = PERCENT_HIGHER_MIDDLE_IQ + 7;
         boolean isHighIq = RANDOM_NUMBER_FROM_PERCENT < PERCENT_HIGH_IQ;
         final short MAX_HIGH_IQ = 130;
         if (isHighIq){
-            final short RANGE_HIGH_IQ = MAX_HIGH_IQ - MAX_HIGHER_MIDDLE_IQ + 1;
-            return (short)(MAX_HIGHER_MIDDLE_IQ + Math.random()*RANGE_HIGH_IQ);
+            final short RANGE_HIGH_IQ = MAX_HIGH_IQ - MAX_HIGHER_MIDDLE_IQ;
+            return (short)(MAX_HIGHER_MIDDLE_IQ + 1 + Math.random()*RANGE_HIGH_IQ);
         }
 
         final short MAX_IQ = 300;
-        final short RANGE_VERY_HIGH_IQ = MAX_IQ - MAX_HIGH_IQ + 1;
-        return (short)(MAX_HIGH_IQ + Math.random()*RANGE_VERY_HIGH_IQ);
+        final short RANGE_VERY_HIGH_IQ = MAX_IQ - MAX_HIGH_IQ;
+        return (short)(MAX_HIGH_IQ + 1 + Math.random()*RANGE_VERY_HIGH_IQ);
 
     }
 }
