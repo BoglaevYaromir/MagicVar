@@ -14,9 +14,36 @@ public class ConsoleInputReader {
                     "Для сражения одного случайного и кастомного персонажа введите \"training\"(2)\n" +
                     "Для сражения двух кастомных персонажей введите \"fight\"(3)\n");
         } else if (PATTERN_RANDOM.matcher(command).matches()) {
-            Person person1 = new Person("Анатолий"); //создание двух персонажей
+            System.out.println("Введите уровень персонажа (4, 3, 2, 1, 0, иначе случайный)");
+            Scanner scanner = new Scanner(System.in);
+            String readLevel = scanner.next();
+            Person person1;
+            Person person2;
+            if (readLevel.equals("4")){
+                person1 = new Person("Анатолий", (byte) 4);
+                person2 = new Person("Евдаким", (byte) 4);
+            }
+            else if (readLevel.equals("3")){
+                person1 = new Person("Анатолий", (byte) 3);
+                person2 = new Person("Евдаким", (byte) 3);
+            }
+            else if (readLevel.equals("2")){
+                person1 = new Person("Анатолий", (byte) 2);
+                person2 = new Person("Евдаким", (byte) 2);
+            }
+            else if (readLevel.equals("1")){
+                person1 = new Person("Анатолий", (byte) 1);
+                person2 = new Person("Евдаким", (byte) 1);
+            }
+            else if (readLevel.equals("0")){
+                person1 = new Person("Анатолий", (byte) 0);
+                person2 = new Person("Евдаким", (byte) 0);
+            }
+            else{
+                person1 = new Person("Анатолий");
+                person2 = new Person("Евдаким");
+            }
             person1.printCharacter(); //вывод характеристик
-            Person person2 = new Person("Евдаким");
             person2.printCharacter();
             BattleService.battleSimulation(person1,person2);//запуск сражения
         } else if (PATTERN_TRAINING.matcher(command).matches()) {
